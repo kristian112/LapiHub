@@ -1,0 +1,174 @@
+﻿@model Lapihub.ViewModels.AdminOrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли за поръчка";
+}
+
+@section Styles {
+    <style>
+        .admin-side-card,
+        .admin-card,
+        .info-box {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-nav-list .list-group-item {
+            border: none;
+            border-radius: 1rem !important;
+            margin-bottom: .35rem;
+            font-weight: 500;
+        }
+
+        .admin-nav-list .list-group-item:hover {
+            background: #fff4ea;
+        }
+
+        .status-badge {
+            background: #eefcf2;
+            color: #2f8f5b;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .product-image {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: .9rem;
+        }
+
+        .info-box {
+            padding: 1.2rem;
+            height: 100%;
+        }
+
+        .info-label {
+            color: #6c757d;
+            margin-bottom: .35rem;
+        }
+
+        .info-value {
+            font-weight: 700;
+        }
+
+        .grand-total {
+            color: #ff8a3d;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+    </style>
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold mb-2">Детайли за поръчка #@Model.Id</h1>
+    <p class="text-muted mb-0">Пълен преглед на избраната поръчка.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <partial name="_AdminNavPartial" />
+    </div>
+
+    <div class="col-lg-9">
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="info-box">
+                    <div class="info-label">Клиент</div>
+                    <div class="info-value">@Model.CustomerName</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="info-box">
+                    <div class="info-label">Имейл</div>
+                    <div class="info-value">@Model.CustomerEmail</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="info-box">
+                    <div class="info-label">Телефон</div>
+                    <div class="info-value">@Model.PhoneNumber</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="info-box">
+                    <div class="info-label">Статус</div>
+                    <div class="info-value"><span class="status-badge">@Model.Status</span></div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="info-box">
+                    <div class="info-label">Метод на плащане</div>
+                    <div class="info-value">@Model.PaymentMethod</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="info-box">
+                    <div class="info-label">Дата</div>
+                    <div class="info-value">@Model.CreatedOn.ToString("dd.MM.yyyy HH:mm")</div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="info-box">
+                    <div class="info-label">Адрес</div>
+                    <div class="info-value">@Model.Address</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card admin-card mb-4">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-4">Продукти в поръчката</h3>
+
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Продукт</th>
+                                <th>Марка</th>
+                                <th>Количество</th>
+                                <th>Единична цена</th>
+                                <th>Общо</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="@item.ImageUrl" alt="@item.ProductName" class="product-image" />
+                                            <div>@item.ProductName</div>
+                                        </div>
+                                    </td>
+                                    <td>@item.Brand</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Price.ToString("F2") лв.</td>
+                                    <td class="fw-bold">@item.LineTotal.ToString("F2") лв.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card admin-card">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <a asp-action="Index" class="btn btn-outline-secondary">Назад</a>
+                <div class="grand-total">Крайна сума: @Model.TotalAmount.ToString("F2") лв.</div>
+            </div>
+        </div>
+    </div>
+</div>

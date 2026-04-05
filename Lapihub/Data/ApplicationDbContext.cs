@@ -1,6 +1,7 @@
 ﻿using Lapihub.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.WebRequestMethods;
 
 namespace Lapihub.Data
 {
@@ -91,7 +92,7 @@ namespace Lapihub.Data
                     CategoryId = 1,
                     Price = 42.90m,
                     Description = "Балансирана суха храна за пораснали кучета с пилешко месо и витамини.",
-                    ImageUrl = "https://placehold.co/600x400?text=Dog+Food+1"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413467/drtt8ian5lvdfi6atyq7.jpg"
                 },
                 new Product
                 {
@@ -101,7 +102,7 @@ namespace Lapihub.Data
                     CategoryId = 1,
                     Price = 36.50m,
                     Description = "Специално разработена формула за кучета от малки породи.",
-                    ImageUrl = "https://placehold.co/600x400?text=Dog+Food+2"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413533/sj9ono8beb9hplkll29v.jpg"
                 },
                 new Product
                 {
@@ -111,7 +112,7 @@ namespace Lapihub.Data
                     CategoryId = 1,
                     Price = 39.80m,
                     Description = "Подходяща за кучета с чувствителен стомах и специални хранителни нужди.",
-                    ImageUrl = "https://placehold.co/600x400?text=Dog+Food+3"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413702/07613035415591_C1L1_44142537.jpg_u8ncgm.webp"
                 },
                 new Product
                 {
@@ -121,7 +122,7 @@ namespace Lapihub.Data
                     CategoryId = 1,
                     Price = 3.20m,
                     Description = "Вкусен пауч с телешко за ежедневно хранене на кучета.",
-                    ImageUrl = "https://placehold.co/600x400?text=Dog+Food+4"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413740/u7w1vcpkxqzwhgdpeznq.jpg"
                 },
 
                 new Product
@@ -132,7 +133,7 @@ namespace Lapihub.Data
                     CategoryId = 2,
                     Price = 29.90m,
                     Description = "Пълноценна храна за домашни котки с контрол на теглото и космените топки.",
-                    ImageUrl = "https://placehold.co/600x400?text=Cat+Food+1"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413772/vpdbgyrdewv7fuilalsk.jpg"
                 },
                 new Product
                 {
@@ -142,7 +143,7 @@ namespace Lapihub.Data
                     CategoryId = 2,
                     Price = 21.40m,
                     Description = "Подходяща за кастрирани котки, с вкус на сьомга.",
-                    ImageUrl = "https://placehold.co/600x400?text=Cat+Food+2"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413853/images_yovsfi.jpg"
                 },
                 new Product
                 {
@@ -152,7 +153,7 @@ namespace Lapihub.Data
                     CategoryId = 2,
                     Price = 2.40m,
                     Description = "Мека и ароматна храна за котки с пиле в сочен сос.",
-                    ImageUrl = "https://placehold.co/600x400?text=Cat+Food+3"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413955/hcuxbz3jfgazjpvtvyul.jpg"
                 },
                 new Product
                 {
@@ -162,7 +163,7 @@ namespace Lapihub.Data
                     CategoryId = 2,
                     Price = 34.70m,
                     Description = "Беззърнена формула с патешко месо за активни котки.",
-                    ImageUrl = "https://placehold.co/600x400?text=Cat+Food+4"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414001/2_5ab4699e-cf74-48a0-996d-e667b2de573f_apn68w.jpg"
                 },
 
                 new Product
@@ -173,7 +174,7 @@ namespace Lapihub.Data
                     CategoryId = 3,
                     Price = 8.90m,
                     Description = "Дентални пръчици за поддържане на устната хигиена при кучета.",
-                    ImageUrl = "https://placehold.co/600x400?text=Treats+1"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414073/lakomstva-za-kucheta-antos-dlight-dental-sticks_t72mw6.jpg"
                 },
                 new Product
                 {
@@ -183,7 +184,7 @@ namespace Lapihub.Data
                     CategoryId = 3,
                     Price = 4.60m,
                     Description = "Хрупкави отвън и меки отвътре лакомства за котки.",
-                    ImageUrl = "https://placehold.co/600x400?text=Treats+2"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414123/images_tqza4i.jpg"
                 },
                 new Product
                 {
@@ -193,7 +194,7 @@ namespace Lapihub.Data
                     CategoryId = 3,
                     Price = 7.80m,
                     Description = "Натурални лакомства за награда по време на тренировки.",
-                    ImageUrl = "https://placehold.co/600x400?text=Treats+3"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414170/xcvcjr04zqpfrbip9z2e.jpg"
                 },
                 new Product
                 {
@@ -203,7 +204,7 @@ namespace Lapihub.Data
                     CategoryId = 3,
                     Price = 6.30m,
                     Description = "Любимо течно лакомство за котки, подходящо и за капризни любимци.",
-                    ImageUrl = "https://placehold.co/600x400?text=Treats+4"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414204/ahswfbpghktmfmwmwrfj.jpg"
                 },
 
                 new Product
@@ -214,7 +215,7 @@ namespace Lapihub.Data
                     CategoryId = 4,
                     Price = 14.90m,
                     Description = "Издръжлива играчка за кучета, подходяща за дъвчене и гонене.",
-                    ImageUrl = "https://placehold.co/600x400?text=Toy+1"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414239/fn29mfrauvwf3lumsnhh.jpg"
                 },
                 new Product
                 {
@@ -224,7 +225,7 @@ namespace Lapihub.Data
                     CategoryId = 4,
                     Price = 9.50m,
                     Description = "Играчка въже за активна игра и укрепване на зъбите.",
-                    ImageUrl = "https://placehold.co/600x400?text=Toy+2"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413222/images_xxbkbb.jpg"
                 },
                 new Product
                 {
@@ -234,7 +235,7 @@ namespace Lapihub.Data
                     CategoryId = 4,
                     Price = 11.20m,
                     Description = "Забавна играчка за котки, стимулираща ловния инстинкт.",
-                    ImageUrl = "https://placehold.co/600x400?text=Toy+3"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775413338/vhaze6zoouxr3oj9mlnz.jpg"
                 },
                 new Product
                 {
@@ -244,7 +245,7 @@ namespace Lapihub.Data
                     CategoryId = 4,
                     Price = 7.40m,
                     Description = "Мека играчка за котки с котешка мента за допълнителен интерес.",
-                    ImageUrl = "https://placehold.co/600x400?text=Toy+4"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414322/nwyjbacfwq9zqxt8avde.jpg"
                 },
 
                 new Product
@@ -255,7 +256,7 @@ namespace Lapihub.Data
                     CategoryId = 5,
                     Price = 12.60m,
                     Description = "Нежен шампоан за кучета с чувствителна кожа.",
-                    ImageUrl = "https://placehold.co/600x400?text=Care+1"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414351/17065_pla_trixie_aloe_vera_hundeshampoo_hs_01_2_ojulyi.jpg"
                 },
                 new Product
                 {
@@ -265,7 +266,7 @@ namespace Lapihub.Data
                     CategoryId = 5,
                     Price = 16.30m,
                     Description = "Бучкуващ пясък за котки с добра абсорбация и контрол на миризмите.",
-                    ImageUrl = "https://placehold.co/600x400?text=Care+2"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414388/res_35754d1777e82a90df33028d510ab676_tly70p.jpg"
                 },
                 new Product
                 {
@@ -275,7 +276,7 @@ namespace Lapihub.Data
                     CategoryId = 5,
                     Price = 5.90m,
                     Description = "Практични мокри кърпички за почистване на лапи след разходка.",
-                    ImageUrl = "https://placehold.co/600x400?text=Care+3"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414432/wf0smgoavmb7yinqeom3.jpg"
                 },
                 new Product
                 {
@@ -285,7 +286,7 @@ namespace Lapihub.Data
                     CategoryId = 5,
                     Price = 13.70m,
                     Description = "Удобна четка за разресване на козина при кучета и котки.",
-                    ImageUrl = "https://placehold.co/600x400?text=Care+4"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414469/jvhu2id1wbkd2zbf9jrn.jpg"
                 },
 
                 new Product
@@ -296,7 +297,7 @@ namespace Lapihub.Data
                     CategoryId = 6,
                     Price = 18.90m,
                     Description = "Удобна каишка за ежедневни разходки с добро сцепление и здравина.",
-                    ImageUrl = "https://placehold.co/600x400?text=Accessory+1"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414499/llnuxiilbnbhkuwecfuj.jpg"
                 },
                 new Product
                 {
@@ -306,7 +307,7 @@ namespace Lapihub.Data
                     CategoryId = 6,
                     Price = 10.80m,
                     Description = "Стабилна и лесна за почистване купичка за вода или храна.",
-                    ImageUrl = "https://placehold.co/600x400?text=Accessory+2"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414539/v2cyoho0scousfynl9ci.jpg"
                 },
                 new Product
                 {
@@ -316,7 +317,7 @@ namespace Lapihub.Data
                     CategoryId = 6,
                     Price = 49.90m,
                     Description = "Меко и удобно легло за кучета с модерен дизайн.",
-                    ImageUrl = "https://placehold.co/600x400?text=Accessory+3"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414570/dg6b1lshohfwpxxqza6p.jpg"
                 },
                 new Product
                 {
@@ -326,7 +327,7 @@ namespace Lapihub.Data
                     CategoryId = 6,
                     Price = 8.20m,
                     Description = "Лек и удобен нашийник за котка с регулируема дължина.",
-                    ImageUrl = "https://placehold.co/600x400?text=Accessory+4"
+                    ImageUrl = "https://res.cloudinary.com/daiw6lh6i/image/upload/v1775414599/pl3c1pznhzlmfmeacfio.jpg"
                 }
             );
         }

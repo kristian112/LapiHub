@@ -1,0 +1,63 @@
+﻿@model Lapihub.ViewModels.AdminProductFormViewModel
+
+@{
+    ViewData["Title"] = "Редакция на продукт";
+}
+
+@section Styles {
+    <style>
+        .admin-side-card,
+        .admin-card {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-nav-list .list-group-item {
+            border: none;
+            border-radius: 1rem !important;
+            margin-bottom: .35rem;
+            font-weight: 500;
+        }
+
+            .admin-nav-list .list-group-item:hover {
+                background: #fff4ea;
+            }
+    </style>
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold mb-2">Редакция на продукт</h1>
+    <p class="text-muted mb-0">Промени данните на избрания продукт.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <partial name="_AdminNavPartial" />
+    </div>
+
+    <div class="col-lg-9">
+        <div class="card admin-card">
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="Id" type="hidden" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <partial name="_ProductFormPartial" model="Model" />
+
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <button type="submit" class="btn btn-lapihub">Запази промените</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Отказ</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

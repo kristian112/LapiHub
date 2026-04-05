@@ -1,0 +1,166 @@
+﻿@model Lapihub.ViewModels.CartIndexViewModel
+
+@{
+    ViewData["Title"] = "Моята количка";
+}
+
+@section Styles {
+    <style>
+        .cart-card,
+        .summary-card,
+        .empty-cart {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0,0,0,.08);
+        }
+
+        .cart-image {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .line-total,
+        .cart-total {
+            font-weight: 700;
+            color: #ff8a3d;
+        }
+
+        .cart-total {
+            font-size: 1.4rem;
+        }
+
+        .cart-row + .cart-row {
+            border-top: 1px solid #f1f1f1;
+        }
+    </style>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h1 class="fw-bold mb-1">Моята количка</h1>
+        <p class="text-muted mb-0">Прегледай избраните продукти и обнови количествата при нужда.</p>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success rounded-4">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger rounded-4">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (Model.Items.Any())
+{
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card cart-card">
+                <div class="card-body p-4">
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="cart-row py-3">
+                            <div class="row align-items-center g-3">
+                                <div class="col-md-2 text-center">
+                                    <img src="@item.ImageUrl" alt="@item.ProductName" class="cart-image" />
+                                </div>
+
+                                <div class="col-md-4">
+                                    <h5 class="fw-bold mb-1">@item.ProductName</h5>
+                                    <div class="text-muted small mb-1">Марка: @item.Brand</div>
+                                    <div class="text-muted small">Единична цена: @item.Price.ToString("F2") лв.</div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <form asp-action="UpdateQuantity" method="post" class="d-flex align-items-center gap-2">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+
+                                        <label class="form-label mb-0">Количество</label>
+                                        <select name="quantity" class="form-select" onchange="this.form.submit()">
+                                            @for (int i = 1; i <= 10; i++)
+                                            {
+                                                if (i == item.Quantity)
+                                                {
+                                                    <option value="@i" selected>@i</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            }
+                                        </select>
+                                    </form>
+                                </div>
+
+                                <div class="col-md-2 text-md-end">
+                                    <div class="line-total">@item.LineTotal.ToString("F2") лв.</div>
+                                </div>
+
+                                <div class="col-md-1 text-md-end">
+                                    <form asp-action="Remove" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" title="Премахни">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card summary-card">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4">Обобщение</h3>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Брой артикули</span>
+                        <strong>@Model.Items.Sum(i => i.Quantity)</strong>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <span>Обща сума</span>
+                        <span class="cart-total">@Model.TotalAmount.ToString("F2") лв.</span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Orders" asp-action="Checkout" class="btn btn-lapihub btn-lg">
+                            Поръчай
+                        </a>
+                        <a asp-controller="Products" asp-action="Index" class="btn btn-outline-dark">
+                            Продължи с пазаруването
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card empty-cart">
+        <div class="card-body p-5 text-center">
+            <div class="display-5 mb-3">🛒</div>
+            <h2 class="fw-bold mb-3">Количката е празна</h2>
+            <p class="text-muted mb-4">
+                Все още нямаш добавени продукти. Разгледай каталога и избери нещо за своя любимец.
+            </p>
+            <a asp-controller="Products" asp-action="Index" class="btn btn-lapihub px-4">
+                Към продуктите
+            </a>
+        </div>
+    </div>
+}

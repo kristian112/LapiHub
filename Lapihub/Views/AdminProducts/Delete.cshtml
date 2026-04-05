@@ -1,0 +1,85 @@
+﻿@model Lapihub.ViewModels.AdminProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Изтриване на продукт";
+}
+
+@section Styles {
+    <style>
+        .admin-side-card,
+        .admin-card,
+        .warning-box {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-nav-list .list-group-item {
+            border: none;
+            border-radius: 1rem !important;
+            margin-bottom: .35rem;
+            font-weight: 500;
+        }
+
+            .admin-nav-list .list-group-item:hover {
+                background: #fff4ea;
+            }
+
+        .warning-box {
+            background: #fff5f5;
+            padding: 1.25rem;
+        }
+
+        .product-preview {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+    </style>
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold mb-2">Изтриване на продукт</h1>
+    <p class="text-muted mb-0">Потвърди дали искаш да изтриеш този продукт.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <partial name="_AdminNavPartial" />
+    </div>
+
+    <div class="col-lg-9">
+        <div class="card admin-card">
+            <div class="card-body p-4">
+                <div class="warning-box rounded-4 mb-4">
+                    <h5 class="fw-bold text-danger mb-2">Внимание</h5>
+                    <p class="mb-0">
+                        Наистина ли искаш да изтриеш продукта <strong>@Model.Name</strong>?
+                    </p>
+                </div>
+
+                <div class="d-flex align-items-start gap-4 flex-wrap mb-4">
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="product-preview" />
+
+                    <div>
+                        <div><strong>Име:</strong> @Model.Name</div>
+                        <div><strong>Марка:</strong> @Model.Brand</div>
+                        <div><strong>Категория:</strong> @Model.CategoryName</div>
+                        <div><strong>Цена:</strong> @Model.Price.ToString("F2") лв.</div>
+                    </div>
+                </div>
+
+                <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-danger">Изтрий</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Отказ</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

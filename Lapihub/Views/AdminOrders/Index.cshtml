@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Lapihub.ViewModels.AdminOrderListItemViewModel>
+
+@{
+    ViewData["Title"] = "Управление на поръчки";
+}
+
+@section Styles {
+    <style>
+        .admin-side-card,
+        .admin-card {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-nav-list .list-group-item {
+            border: none;
+            border-radius: 1rem !important;
+            margin-bottom: .35rem;
+            font-weight: 500;
+        }
+
+            .admin-nav-list .list-group-item:hover {
+                background: #fff4ea;
+            }
+
+        .status-badge {
+            background: #eefcf2;
+            color: #2f8f5b;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+    </style>
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold mb-2">Управление на поръчки</h1>
+    <p class="text-muted mb-0">Преглеждай, отваряй и изтривай поръчки.</p>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success rounded-4">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <partial name="_AdminNavPartial" />
+    </div>
+
+    <div class="col-lg-9">
+        <div class="card admin-card">
+            <div class="card-body p-4">
+                @if (Model.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Клиент</th>
+                                    <th>Имейл</th>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                    <th>Артикули</th>
+                                    <th>Сума</th>
+                                    <th class="text-end">Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model)
+                                {
+                                    <tr>
+                                        <td>#@order.Id</td>
+                                        <td>@order.CustomerName</td>
+                                        <td>@order.CustomerEmail</td>
+                                        <td>@order.CreatedOn.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td><span class="status-badge">@order.Status</span></td>
+                                        <td>@order.ItemsCount</td>
+                                        <td>@order.TotalAmount.ToString("F2") лв.</td>
+                                        <td class="text-end">
+                                            <div class="d-flex justify-content-end gap-2 flex-wrap">
+                                                <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-outline-dark btn-sm">Детайли</a>
+                                                <a asp-action="Delete" asp-route-id="@order.Id" class="btn btn-outline-danger btn-sm">Изтрий</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <div class="display-6 mb-3">📦</div>
+                        <h3 class="fw-bold">Няма поръчки</h3>
+                        <p class="text-muted mb-0">Когато се появят поръчки, ще ги виждаш тук.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

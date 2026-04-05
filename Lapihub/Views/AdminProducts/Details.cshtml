@@ -1,0 +1,126 @@
+﻿@model Lapihub.ViewModels.AdminProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли за продукт";
+}
+
+@section Styles {
+    <style>
+        .admin-side-card,
+        .admin-card,
+        .info-box {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-nav-list .list-group-item {
+            border: none;
+            border-radius: 1rem !important;
+            margin-bottom: .35rem;
+            font-weight: 500;
+        }
+
+            .admin-nav-list .list-group-item:hover {
+                background: #fff4ea;
+            }
+
+        .product-image-large {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .info-box {
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .info-label {
+            color: #6c757d;
+            margin-bottom: .35rem;
+        }
+
+        .info-value {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+    </style>
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold mb-2">Детайли за продукт</h1>
+    <p class="text-muted mb-0">Пълен преглед на информацията за продукта.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <partial name="_AdminNavPartial" />
+    </div>
+
+    <div class="col-lg-9">
+        <div class="card admin-card">
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-lg-5">
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image-large" />
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <div class="info-label">Име</div>
+                                    <div class="info-value">@Model.Name</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <div class="info-label">Марка</div>
+                                    <div class="info-value">@Model.Brand</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <div class="info-label">Категория</div>
+                                    <div class="info-value">@Model.CategoryName</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="info-box">
+                                    <div class="info-label">Цена</div>
+                                    <div class="info-value">@Model.Price.ToString("F2") лв.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="info-box">
+                                    <div class="info-label">Описание</div>
+                                    <div class="info-value">@Model.Description</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="info-box">
+                                    <div class="info-label">Image URL</div>
+                                    <div class="info-value">@Model.ImageUrl</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-lapihub">Редактирай</a>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Изтрий</a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Назад</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

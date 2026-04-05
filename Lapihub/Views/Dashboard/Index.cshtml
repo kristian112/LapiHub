@@ -1,0 +1,157 @@
+﻿@model Lapihub.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Табло";
+}
+
+@section Styles {
+    <style>
+        .dashboard-card,
+        .dashboard-action-card {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #fff1e7, #eefcf2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .user-info-box {
+            background: #fffaf2;
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            height: 100%;
+        }
+
+        .user-info-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 0.35rem;
+        }
+
+        .user-info-value {
+            font-weight: 600;
+            font-size: 1.05rem;
+            word-break: break-word;
+        }
+
+        .dashboard-action-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+        }
+
+            .dashboard-action-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 0.85rem 1.6rem rgba(0, 0, 0, 0.12);
+            }
+
+        .dashboard-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            background: #fff3e6;
+            color: #ff8a3d;
+        }
+    </style>
+}
+
+<div class="dashboard-header shadow-sm mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <h1 class="fw-bold mb-2">Табло</h1>
+            <p class="mb-0 text-muted">
+                Добре дошъл, @Model.FirstName! Оттук можеш бързо да прегледаш профила си,
+                количката и своите поръчки.
+            </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <div class="display-5">🐾</div>
+        </div>
+    </div>
+</div>
+
+<div class="card dashboard-card mb-4">
+    <div class="card-body p-4 p-lg-5">
+        <h2 class="fw-bold mb-4">Моята информация</h2>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="user-info-box">
+                    <div class="user-info-label">Име</div>
+                    <div class="user-info-value">@Model.FirstName</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="user-info-box">
+                    <div class="user-info-label">Фамилия</div>
+                    <div class="user-info-value">@Model.LastName</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="user-info-box">
+                    <div class="user-info-label">Имейл</div>
+                    <div class="user-info-value">@Model.Email</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="user-info-box">
+                    <div class="user-info-label">Телефон</div>
+                    <div class="user-info-value">
+                        @(string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "Няма въведен телефон" : Model.PhoneNumber)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card dashboard-action-card">
+            <div class="card-body p-4 p-lg-5 text-center">
+                <div class="dashboard-icon mx-auto mb-3">
+                    <i class="bi bi-cart3"></i>
+                </div>
+
+                <h3 class="fw-bold mb-3">Моята количка</h3>
+                <p class="text-muted mb-4">
+                    Прегледай добавените продукти, промени количествата и продължи към поръчка.
+                </p>
+
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-lapihub px-4">
+                    Към количката
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card dashboard-action-card">
+            <div class="card-body p-4 p-lg-5 text-center">
+                <div class="dashboard-icon mx-auto mb-3">
+                    <i class="bi bi-receipt"></i>
+                </div>
+
+                <h3 class="fw-bold mb-3">Моите поръчки</h3>
+                <p class="text-muted mb-4">
+                    Виж историята на своите поръчки и отвори детайли за всяка направена заявка.
+                </p>
+
+                <a asp-controller="Orders" asp-action="MyOrders" class="btn btn-outline-dark px-4">
+                    Към поръчките
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

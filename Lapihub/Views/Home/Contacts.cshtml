@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Контакти";
+}
+
+@section Styles {
+    <style>
+        .contact-card,
+        .contact-box {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-hero {
+            background: linear-gradient(135deg, #fff1e7, #eefcf2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .contact-box {
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .contact-label {
+            color: #6c757d;
+            margin-bottom: .4rem;
+        }
+
+        .contact-value {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+    </style>
+}
+
+<div class="contact-hero shadow-sm mb-4">
+    <div class="row align-items-center g-3">
+        <div class="col-lg-8">
+            <h1 class="fw-bold mb-2">Контакти</h1>
+            <p class="text-muted mb-0">
+                Свържи се с екипа на ЛапиХъб при въпроси за продукти, поръчки и доставка.
+            </p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            <div class="display-5">📞</div>
+        </div>
+    </div>
+</div>
+
+<div class="card contact-card">
+    <div class="card-body p-4 p-lg-5">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="contact-box">
+                    <div class="contact-label">Име на магазин</div>
+                    <div class="contact-value">ЛапиХъб</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="contact-box">
+                    <div class="contact-label">Имейл</div>
+                    <div class="contact-value">support@lapihub.bg</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="contact-box">
+                    <div class="contact-label">Телефон</div>
+                    <div class="contact-value">0888 123 456</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="contact-box">
+                    <div class="contact-label">Работно време</div>
+                    <div class="contact-value">Понеделник – Събота, 09:00 – 18:00</div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="contact-box">
+                    <div class="contact-label">Адрес</div>
+                    <div class="contact-value">гр. София, бул. „Лапичка“ № 12</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

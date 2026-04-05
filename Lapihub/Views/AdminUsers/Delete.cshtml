@@ -1,0 +1,86 @@
+﻿@model Lapihub.ViewModels.AdminUserDetailsViewModel
+
+@{
+    ViewData["Title"] = "Изтриване на потребител";
+}
+
+@section Styles {
+    <style>
+        .admin-side-card,
+        .admin-card,
+        .warning-box {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-nav-list .list-group-item {
+            border: none;
+            border-radius: 1rem !important;
+            margin-bottom: .35rem;
+            font-weight: 500;
+        }
+
+            .admin-nav-list .list-group-item:hover {
+                background: #fff4ea;
+            }
+
+        .warning-box {
+            background: #fff5f5;
+            padding: 1.25rem;
+        }
+    </style>
+}
+
+<div class="mb-4">
+    <h1 class="fw-bold mb-2">Изтриване на потребител</h1>
+    <p class="text-muted mb-0">Потвърди дали искаш да изтриеш този потребител.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <partial name="_AdminNavPartial" />
+    </div>
+
+    <div class="col-lg-9">
+        <div class="card admin-card">
+            <div class="card-body p-4">
+                <div class="warning-box rounded-4 mb-4">
+                    <h5 class="fw-bold text-danger mb-2">Внимание</h5>
+                    <p class="mb-0">
+                        Наистина ли искаш да изтриеш потребителя <strong>@Model.FirstName @Model.LastName</strong>?
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <div><strong>Имейл:</strong> @Model.Email</div>
+                    <div><strong>Телефон:</strong> @(string.IsNullOrWhiteSpace(Model.PhoneNumber) ? "-" : Model.PhoneNumber)</div>
+                    <div><strong>Поръчки:</strong> @Model.OrdersCount</div>
+                    <div><strong>Продукти в количката:</strong> @Model.CartItemsCount</div>
+                    <div><strong>Роля:</strong> @(Model.IsAdmin ? "Админ" : "Потребител")</div>
+                </div>
+
+                @if (Model.OrdersCount > 0)
+                {
+                    <div class="alert alert-danger rounded-4">
+                        Този потребител не може да бъде изтрит, защото има направени поръчки.
+                    </div>
+
+                    <a asp-action="Index" class="btn btn-outline-secondary">Назад</a>
+                }
+                else
+                {
+                    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-danger">Изтрий</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Отказ</a>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

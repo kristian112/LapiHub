@@ -1,0 +1,133 @@
+﻿@model Lapihub.ViewModels.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Поръчка";
+}
+
+@section Styles {
+    <style>
+        .checkout-card,
+        .summary-card {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0,0,0,.08);
+        }
+
+        .summary-item + .summary-item {
+            border-top: 1px solid #f1f1f1;
+        }
+
+        .checkout-image {
+            width: 68px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 0.85rem;
+        }
+
+        .total-price {
+            color: #ff8a3d;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .payment-note {
+            background: #fff8ec;
+            border-radius: 1rem;
+            padding: 0.9rem 1rem;
+            color: #6c757d;
+        }
+    </style>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h1 class="fw-bold mb-1">Поръчка</h1>
+        <p class="text-muted mb-0">Попълни данните си и завърши поръчката.</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card checkout-card">
+            <div class="card-body p-4 p-lg-5">
+                <h3 class="fw-bold mb-4">Данни за доставка</h3>
+
+                <form asp-action="Checkout" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Address" class="form-label"></label>
+                        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="PaymentMethod" class="form-label"></label>
+                        <select asp-for="PaymentMethod" asp-items="Model.PaymentMethods" class="form-select"></select>
+                        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                    </div>
+
+                    <div class="payment-note mb-4">
+                        Плащането се извършва чрез <strong>наложен платеж</strong> при получаване на поръчката.
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex">
+                        <button type="submit" class="btn btn-lapihub btn-lg px-4">
+                            Потвърди поръчката
+                        </button>
+                        <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-dark btn-lg px-4">
+                            Обратно към количката
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card summary-card">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-4">Обобщение</h3>
+
+                @foreach (var item in Model.CartItems)
+                {
+                    <div class="summary-item py-3">
+                        <div class="d-flex gap-3">
+                            <img src="@item.ImageUrl" alt="@item.ProductName" class="checkout-image" />
+
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold">@item.ProductName</div>
+                                <div class="text-muted small">Марка: @item.Brand</div>
+                                <div class="text-muted small">Количество: @item.Quantity</div>
+                            </div>
+
+                            <div class="fw-bold text-nowrap">
+                                @item.LineTotal.ToString("F2") лв.
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <hr />
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold">Обща сума</span>
+                    <span class="total-price">@Model.TotalAmount.ToString("F2") лв.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

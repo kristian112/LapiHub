@@ -1,0 +1,170 @@
+﻿@model Lapihub.ViewModels.ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли за продукт";
+}
+
+@section Styles {
+    <style>
+        .details-card,
+        .related-card {
+            background: #fff;
+            border: none;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.08);
+        }
+
+        .details-card {
+            overflow: hidden;
+        }
+
+        .details-image {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            background-color: #f8f9fa;
+        }
+
+        .price-big {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff8a3d;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #eefcf2;
+            color: #2f8f5b;
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .info-label {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .related-image {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+        }
+
+        .description-box {
+            background: #fffaf2;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+    </style>
+}
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info rounded-4">
+        @TempData["InfoMessage"]
+    </div>
+}
+
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+            <a asp-controller="Home" asp-action="Index" class="text-decoration-none">Начало</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a asp-action="Index" class="text-decoration-none">Продукти</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            @Model.Product.Name
+        </li>
+    </ol>
+</nav>
+
+<div class="mb-4">
+    <a asp-action="Index" class="btn btn-outline-secondary">← Обратно към продуктите</a>
+</div>
+
+<div class="card details-card mb-5">
+    <div class="row g-0">
+        <div class="col-lg-6">
+            <img src="@Model.Product.ImageUrl" alt="@Model.Product.Name" class="details-image" />
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card-body p-4 p-lg-5 h-100 d-flex flex-column">
+                <div class="mb-2">
+                    <span class="category-badge">@Model.Product.Category?.Name</span>
+                </div>
+
+                <div class="info-label mb-2">Марка: @Model.Product.Brand</div>
+
+                <h1 class="fw-bold mb-3">@Model.Product.Name</h1>
+
+                <div class="price-big mb-4">@Model.Product.Price.ToString("F2") лв.</div>
+
+                <div class="description-box mb-4">
+                    <h5 class="fw-bold mb-3">Описание</h5>
+                    <p class="text-muted mb-0">@Model.Product.Description</p>
+                </div>
+
+                <div class="mt-auto">
+                    <form asp-action="AddToCart" asp-route-id="@Model.Product.Id" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                        <button type="submit" class="btn btn-lapihub btn-lg px-4">
+                            Добави в количката
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h2 class="fw-bold mb-0">Подобни продукти</h2>
+        <a asp-action="Index" asp-route-categoryId="@Model.Product.CategoryId" class="btn btn-outline-dark btn-sm">
+            Виж още от категорията
+        </a>
+    </div>
+
+    @if (Model.RelatedProducts.Any())
+    {
+        <div class="row g-4">
+            @foreach (var product in Model.RelatedProducts)
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="card related-card h-100">
+                        <img src="@product.ImageUrl" alt="@product.Name" class="related-image" />
+
+                        <div class="card-body d-flex flex-column">
+                            <h6 class="fw-bold">@product.Name</h6>
+                            <div class="text-muted small mb-1">Марка: @product.Brand</div>
+                            <div class="text-muted small mb-3">Категория: @product.Category?.Name</div>
+
+                            <div class="mt-auto">
+                                <div class="fw-bold mb-3" style="color:#ff8a3d;">
+                                    @product.Price.ToString("F2") лв.
+                                </div>
+
+                                <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-dark w-100">
+                                    Детайли
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-light border rounded-4">
+            Няма други продукти в тази категория.
+        </div>
+    }
+</section>
